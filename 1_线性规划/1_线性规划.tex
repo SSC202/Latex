@@ -1,0 +1,99 @@
+\documentclass{article}
+
+\usepackage[UTF8]{ctex}
+\usepackage{algorithm}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage[a4paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}
+
+\title{第一章 \quad 线性规划}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+	本章阐述了线性规划的数学基本原理，例子和Python代码实现。
+\end{abstract}
+
+\section{数学原理}
+线性规划模型的一般形式为：
+	\begin{equation}
+		\begin{split}
+			max \quad z = c_1x_1 + c_2x_2 + \cdots + c_nx_n \\
+			s.t.\begin{cases}
+				a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n \geq b_1 \\
+				a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n \geq b_2 \\
+				\cdots											    \\
+				a_{m1}x_1 + a_{n2}x_2 + \cdots + a_{nn}x_n \geq b_m	\\
+				x_1,x_2,\cdots,x_n \geq 0							\\
+ 			\end{cases}
+		\end{split}
+	\end{equation}
+其矩阵表示形式为：
+	\begin{equation}
+		\begin{split}
+			max \quad z = \bm{c^Tx} \\
+			s.t.\begin{cases}
+				\bm{Ax} \geq \bm{b} \\
+				\bm{x} \geq 0 		\\
+			\end{cases}
+		\end{split}
+	\end{equation}
+式中，$\bm{c^T}$为目标函数的系数向量，又称价值向量。$\bm{x}$称为决策向量，由决策者决定。$\bm{A}$为约束方程组的系数矩阵；$\bm{A}$的列向量为约束方程组的系数向量，$\bm{b}$称为约束方程组的常数向量。
+\subsection{线性规划问题的解}
+\pmb{可行解}：满足约束条件（2）的解$\bm{x} = [x_1,x_2,\cdots,x_n]^T$称为线性规划问题的可行解，其中使得目标函数$z$取得最大值的解称为最优解。
+
+\pmb{可行域}：所有可行解构成的集合称为可行域。
+\subsection{灵敏度分析}
+线性规划问题中，$\bm{A}$,$\bm{b}$,$\bm{c}$不一定为常矩阵。其中的一些值变化时，可行解会发生一定的变化。
+
+将产生以下问题：
+
+（1）在条件变化时，现行的最优解会发生什么变化； 
+
+（2）将参数变化限制在哪个范围内，原最优解仍是最优解。
+
+对于数学建模问题而言，灵敏度分析是必要的。
+
+\section{Python程序}
+
+使用Python的spicy库可以解决线性规划问题：
+
+对于Python而言，线性规划的标准形式如下：
+	\begin{equation}
+		\begin{split}
+			max \quad \bm{c^Tx} \\
+			s.t.\begin{cases}
+				\bm{Ax} \leq \bm{b} \\ 
+				\bm{A}_{eq}\bm{x} = \bm{b}_{eq} \\
+				\bm{lb} \leq \bm{x} \leq \bm{\mu b}	\\
+			\end{cases}
+		\end{split}
+	\end{equation}
+对应的，Python的函数如下
+\begin{minted}{python}
+"""
+	线性规划函数：
+	@param c 价值向量
+	@param A_ub 不等式约束矩阵
+	@param b_ub 不等式约束向量
+	@param A_eq 等式约束矩阵
+	@param b_eq 等式约束向量
+	@param bounds 列表元素的元组 定义决策变量的最小值
+
+	@retval x 目标函数最小化的决策变量值
+	@retval fun 目标函数最优值
+	@retval slack 不等式约束的松弛值，理论上为正值
+	@retval con 等式约束的残差，理论上为0
+	@retval status 算法退出状态的整数
+	@retval nit 迭代总数
+"""
+	scipy.optimize.lineprog(c,A_ub=None,b_ub=None,A_eq=None,b_eq=None,bounds=None,method='simplex',callback=None,options=None)
+\end{minted}
+
+\pmb{注1}：函数是默认求最小值的，如果要求最大值，应该将$\bm{c}$改为$\bm{-c}$。
+
+\pmb{注2}：对于带绝对值的线性规划，先尝试使用拆分等手段进行线性化，然后进行线性规划。
+
+\end{document}
+

@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{	线性规划函数：}
+\PYG{l+s+sd}{	@param c 价值向量}
+\PYG{l+s+sd}{	@param A\PYGZus{}ub 不等式约束矩阵}
+\PYG{l+s+sd}{	@param b\PYGZus{}ub 不等式约束向量}
+\PYG{l+s+sd}{	@param A\PYGZus{}eq 等式约束矩阵}
+\PYG{l+s+sd}{	@param b\PYGZus{}eq 等式约束向量}
+\PYG{l+s+sd}{	@param bounds 列表元素的元组 定义决策变量的最小值}
+
+\PYG{l+s+sd}{	@retval x 目标函数最小化的决策变量值}
+\PYG{l+s+sd}{	@retval fun 目标函数最优值}
+\PYG{l+s+sd}{	@retval slack 不等式约束的松弛值，理论上为正值}
+\PYG{l+s+sd}{	@retval con 等式约束的残差，理论上为0}
+\PYG{l+s+sd}{	@retval status 算法退出状态的整数}
+\PYG{l+s+sd}{	@retval nit 迭代总数}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+	\PYG{n}{scipy}\PYG{o}{.}\PYG{n}{optimize}\PYG{o}{.}\PYG{n}{lineprog}\PYG{p}{(}\PYG{n}{c}\PYG{p}{,}\PYG{n}{A\PYGZus{}ub}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,}\PYG{n}{b\PYGZus{}ub}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,}\PYG{n}{A\PYGZus{}eq}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,}\PYG{n}{b\PYGZus{}eq}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,}\PYG{n}{bounds}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,}\PYG{n}{method}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}simplex\PYGZsq{}}\PYG{p}{,}\PYG{n}{callback}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,}\PYG{n}{options}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}
+\end{Verbatim}
